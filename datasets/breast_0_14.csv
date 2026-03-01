@@ -1,0 +1,5 @@
+"Clump_Thickness","Cell_Size_Uniformity","Cell_Shape_Uniformity","Marginal_Adhesion","Single_Epi_Cell_Size","Bare_Nuclei","Bland_Chromatin","Normal_Nucleoli","Mitoses","dist.target","dist.x.interest","nr.changed","dist.train","pred","predicted_class"
+5,1,1,2,4,1,5,1,1,0,0.481481481481481,8,0.0493827160493827,1,"benign"
+5,1,1,2,2,1,5,2,1,0,0.493827160493827,8,0.037037037037037,1,"benign"
+5,1,1,1,2,1,5,1,1,0,0.518518518518518,8,0.0246913580246914,1,"benign"
+5,1,1,2,2,2,3,1,1,0,0.518518518518518,9,0,1,"benign"
