@@ -2,7 +2,7 @@
 
 This repository contains Python code associated with the papers:
 
-1) **ACE: Adapting Sampling for Counterfactual Explanations** (accepted at **L4DC 2026**) \\
+1) **ACE: Adapting Sampling for Counterfactual Explanations** (accepted at **L4DC 2026**)
    Margarita A. Guerrero, Cristian R. Rojas
    📄 [arXiv link](https://arxiv.org/abs/2509.26322)
    ✅ Accepted for publication in *IEEE Control Systems Letters (LCSS), 2025 Edition*.
