@@ -8,7 +8,7 @@ This repository contains Python code associated with the papers:
   ✅ Accepted for publication in *8th Annual Learning for Dynamics & Control Conference, 2026 Edition*.
   
   **“Sample-Efficient Counterfactual Tuning for Compressor Pressure Control”**  
-  Margarita A. Guerrero, Braghadeesh Lakshminarayanan, Cristian R. Rojas  
+  Margarita A. Guerrero, Rodrigo A. González, Cristian R. Rojas  
   📄 [arXiv link](https://arxiv.org/abs/2512.03747)  
 
 ---
