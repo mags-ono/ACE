@@ -2,6 +2,12 @@
 
 This repository contains Python code associated with the papers:
 
+**“Data-Driven Estimation of Structured Singular Values”**  
+Margarita A. Guerrero, Braghadeesh Lakshminarayanan, Cristian R. Rojas  
+📄 [arXiv link](https://arxiv.org/abs/2503.13410)  
+✅ Accepted for publication in *IEEE Control Systems Letters (LCSS), 2025 Edition*.
+
+
 1) **ACE: Adapting Sampling for Counterfactual Explanations** (accepted at **L4DC 2026**)
    
    Margarita A. Guerrero, Cristian R. Rojas
