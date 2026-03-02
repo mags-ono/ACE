@@ -36,18 +36,12 @@ In addition to standard ML benchmarks, ACE is used as a **controller retuning en
 
 > Note: `ACE_Github.py` imports these helper modules from the same folder, and reads datasets from `datasets/<name>.csv`.
 
-
-## Main Functions
-
-Below is the key function used to run ACE end-to-end.
-
 ## Main Function
 
 Below is the key function used to run ACE end-to-end.
 
 ### `iterative_main_loop`
 
-**Signature**
 ```python
 iterative_main_loop(
     dataset,
@@ -129,3 +123,17 @@ print("Result index", ind, ":")
 print("instance:", fmt4(result["instance"]))
 print("x_s:", fmt4(result["x_s"]))
 print("Elapsed_time:", fmt4(result["elapsed_time"]))
+```
+
+
+### Citation
+
+If you use this code in your work, please cite:
+
+@inproceedings{Guerrero-25-ACE,
+  title     = {{ACE}: Adapting Sampling for Counterfactual Explanations},
+  author    = {Guerrero, Margarita A. and Rojas, Cristian R.},
+  booktitle = {8th Annual Learning for Dynamics \& Control Conference (L4DC)},
+  year      = {2026},
+  note      = {Also available as arXiv:2509.26322}
+}
