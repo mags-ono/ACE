@@ -40,8 +40,12 @@ In addition to standard ML benchmarks, ACE is used as a **controller retuning en
 
 Below is the key function used to run ACE end-to-end.
 
-### `iterative_main_loop`
+## `iterative_main_loop`
 
+**Purpose**  
+Runs **ACE end-to-end** for a *single* factual instance: it initializes the surrogate/model using \(\mathcal{H}\) initial samples, then iteratively proposes new candidate points (via an acquisition function), queries the black-box evaluator, and returns the closest valid counterfactual found.
+
+**Signature**
 ```python
 iterative_main_loop(
     dataset,
@@ -53,6 +57,7 @@ iterative_main_loop(
     action=None
 )
 ```
+
 **Inputs (most important)**
 - `dataset` (str): dataset name (expects `datasets/<dataset>.csv`)
   - examples: `"pidf"`, `"pid_cascade"`, `"diabetes"`, etc.
@@ -64,16 +69,23 @@ iterative_main_loop(
 - `action` (list[int] or empty list): indices of **immutable/frozen** features  
   - if `action=[]`, then **all features are actionable**
 
-**Outputs (most important)**
+**Outputs (most important)**  
 Returns a tuple:
-- `output[0]`: a **dict** containing the run results, including (at least)
-  - `instance`: the factual instance \(\tilde{x}\)
-  - `x_s`: the computed counterfactual \(x\) (closest found)
+- `output[0]` (dict): run results, typically including:
+  - `instance`: factual instance \(\tilde{x}\)
+  - `x_s`: computed counterfactual \(x\) (closest found)
   - `elapsed_time`: wall-clock time
   - `X`: sampled points across iterations
-- `output[1]`: the **predictor** (black-box evaluator used for the selected dataset)
+- `output[1]`: the predictor / black-box evaluator used for the selected dataset
 
-### `run_100_fixed_iterations`
+---
+
+## `run_100_fixed_iterations`
+
+**Purpose**  
+Runs ACE on a **single fixed factual instance** (given by `fixed_index`) for **100 different seeds**, saves run-level artifacts (e.g., NPZ + optional boxplots), and returns aggregated statistics.
+
+**Signature**
 ```python
 run_100_fixed_iterations(
     dataset,
@@ -89,9 +101,6 @@ run_100_fixed_iterations(
     save_png=False
 )
 ```
-**Purpose**
-
-Runs ACE on a **single fixed factual instance** (given by `fixed_index`) for **100 different seeds**, saves run-level artifacts (NPZ + optional boxplots), and returns aggregated statistics.
 
 **Inputs (most important)**
 - `dataset` (str): dataset name (expects `datasets/<dataset>.csv`)
@@ -104,19 +113,183 @@ Runs ACE on a **single fixed factual instance** (given by `fixed_index`) for **1
 - `save_dir` (str): folder where NPZ and figures are saved
 - `save_plots`, `show_plots`, `save_pdf`, `save_png` (bool): figure controls
 
-**Outputs (most important)**
-Returns a **dict** with summary statistics and saved-path info, including:
+**Outputs (most important)**  
+Returns a dict with summary statistics and saved-path info (keys may include):
 - `l2_mean`, `l2_std` : mean/std L2 distance between CFE and factual instance
 - `l1_mean`, `l1_std` : mean/std L1 distance between CFE and factual instance
-- `validity_rate`, `validity_std` : fraction of runs that changed the instance (plus variability)
+- `validity_rate`, `validity_std` : fraction of runs that achieved a valid flip (plus variability)
 - `lof_mean`, `lof_std` : mean/std LOF-based affinity of returned CFEs
 - `iters_mean`, `iters_std` : mean/std of total iterations
 - `real_iters_mean`, `real_iters_std` : mean/std of iterations after initialization
-- `seeds` : array of seeds used
-- `npz_path` : path to the saved NPZ file
-- `fig_prefix` : prefix used for saved plots
-- `cfe_mean`, `cfe_std` : mean/std of CFEs in original scale
-- `cfe_mean_norm`, `cfe_std_norm` : mean/std of CFEs in normalized scale
+- `seeds` : array/list of seeds used
+- `npz_path` : path to the saved NPZ file (if saved)
+- `fig_prefix` : prefix used for saved plots (if saved)
+
+**Example**
+```python
+stats = run_100_fixed_iterations(
+    dataset="pid_cascade",
+    target=t,
+    target_val=1,
+    fixed_index=47,
+    ini_ponts=30,
+    action=[],
+    save_dir="results_pid_cascade"
+)
+print(stats["l2_mean"], stats["validity_rate"], stats["npz_path"])
+```
+
+---
+
+## `optimize_acquisition_cat`
+
+**Purpose**  
+Optimizes the acquisition function (Expected Improvement) when some features are **categorical / integer-like**.  
+A common approach is: continuous optimization (e.g., L‑BFGS‑B) for real-valued coordinates + local refinement for categorical coordinates (e.g., floor/ceil candidates), while respecting bounds and optionally frozen features.
+
+**Signature**
+```python
+optimize_acquisition_cat(
+    X,
+    t,
+    categorical_columns,
+    X_test,
+    kernel,
+    bound_vals,
+    x_s,
+    MC,
+    factor,
+    lambd=10,
+    n_neighbors=20,
+    action=None,
+    sampling_method="lhs",
+    gtol=1e-20
+)
+```
+
+**Inputs (most important)**
+- `X` (np.ndarray): current sampled points
+- `t` (np.ndarray): corresponding targets for `X`
+- `categorical_columns` (list[int]): indices of categorical/integer features
+- `X_test` (np.ndarray): candidate pool / initialization points for the optimizer
+- `kernel`: GP kernel object
+- `bound_vals` (np.ndarray): bounds array of shape `(d, 2)`
+- `x_s` (np.ndarray): reference point (typically the factual instance) used in the acquisition
+- `MC` (int): Monte Carlo sample count used inside EI
+- `factor` (float): scaling factor used inside the optimizer workflow
+- `lambd` (float): regularization / trade-off parameter used in EI
+- `action` (list[int] or empty list): indices of **immutable/frozen** features
+- `sampling_method` (str): e.g., `"lhs"` (Latin Hypercube)
+- `gtol` (float): optimizer tolerance
+
+**Outputs (most important)**  
+Returns a tuple:
+- `best_x` (np.ndarray): best candidate point found (next query point)
+- `fx` (float): auxiliary EI output (as returned by the EI routine)
+- `best_ei` (float): best (max) expected improvement achieved
+- `x_min` (np.ndarray): baseline point used by EI (depending on implementation)
+
+**Example**
+```python
+best_x, fx, best_ei, x_min = optimize_acquisition_cat(
+    X=X,
+    t=t_train,
+    categorical_columns=[0, 3],
+    X_test=X_candidates,
+    kernel=kernel,
+    bound_vals=bounds,
+    x_s=instance,
+    MC=200,
+    factor=1.0,
+    lambd=10,
+    action=[]
+)
+```
+
+---
+
+## `expected_improvement_mc_l1`
+
+**Purpose**  
+Computes **Expected Improvement (EI)** at candidate points using **Monte Carlo sampling** and an **L1-based sparsity penalty**, encouraging counterfactuals that change **fewer** features (or change them less in an L1 sense).
+
+**Signature**
+```python
+expected_improvement_mc_l1(
+    X2,
+    X,
+    t,
+    kernel,
+    x_s,
+    lambda_,
+    n_samples,
+    alpha=5
+)
+```
+
+**Inputs (most important)**
+- `X2` (np.ndarray): candidate points where EI is evaluated
+- `X` (np.ndarray): current sampled points (training inputs for the surrogate)
+- `t` (np.ndarray): targets for `X`
+- `kernel`: GP kernel object
+- `x_s` (np.ndarray): reference point (factual instance)
+- `lambda_` (float): regularization weight
+- `n_samples` (int): number of Monte Carlo samples
+- `alpha` (float): weight for the L1 / sparsity term
+
+**Outputs (most important)**  
+Returns a tuple:
+- `mean_improvement` (float): EI value (mean improvement)
+- `fx` (float): auxiliary value returned by the EI routine
+- `x_min` (np.ndarray): baseline point used internally for the improvement term
+
+**Example**
+```python
+ei, fx, x_min = expected_improvement_mc_l1(
+    X2=X_candidates,
+    X=X,
+    t=t_train,
+    kernel=kernel,
+    x_s=instance,
+    lambda_=10,
+    n_samples=200,
+    alpha=5
+)
+```
+
+---
+
+## `compute_lof_affinity`
+
+**Purpose**  
+Computes a **Local Outlier Factor (LOF)** based affinity score for a candidate point, relative to a reference dataset.  
+Intuition:
+- affinity \(\approx 1\) means “typical / inlier”
+- affinity \(> 1\) means “stronger inlier”
+- affinity \(< 1\) means “more outlier-like”
+
+**Signature**
+```python
+compute_lof_affinity(
+    new_point,
+    X,
+    n_neighbors=20
+)
+```
+
+**Inputs (most important)**
+- `new_point` (np.ndarray): point to evaluate (e.g., a candidate CFE)
+- `X` (np.ndarray): reference data used to fit the LOF model
+- `n_neighbors` (int): LOF neighborhood size
+
+**Output**
+- `affinity` (float): LOF-based affinity score
+
+**Example**
+```python
+aff = compute_lof_affinity(new_point=cfe, X=X_samples, n_neighbors=30)
+print("LOF affinity:", aff)
+```
 
 ## Example Included: PID Cascade Tuning
 
