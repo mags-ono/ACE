@@ -73,6 +73,23 @@ Returns a tuple:
   - `X`: sampled points across iterations
 - `output[1]`: the **predictor** (black-box evaluator used for the selected dataset)
 
+### `run_100_fixed_iterations`
+```python
+run_100_fixed_iterations(
+    dataset,
+    target,
+    target_val,
+    fixed_index,
+    ini_ponts=30,
+    action=None,
+    save_dir="results",
+    save_plots=True,
+    show_plots=True,
+    save_pdf=True,
+    save_png=False
+)```
+
+
 
 ## Example Included: PID Cascade Tuning
 
