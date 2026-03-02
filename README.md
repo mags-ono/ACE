@@ -58,7 +58,7 @@ iterative_main_loop(
     seed=0,
     action=None
 )
-
+```
 **Inputs (most important)**
 - `dataset` (str): dataset name (expects `datasets/<dataset>.csv`)
   - examples: `"pidf"`, `"pid_cascade"`, `"diabetes"`, etc.
