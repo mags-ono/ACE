@@ -180,7 +180,6 @@ Returns a tuple:
   - `X`: sampled points across iterations
 - `output[1]`: the predictor / black-box evaluator used for the selected dataset
 
----
 
 ## `run_100_fixed_iterations`
 
@@ -227,7 +226,6 @@ Returns a dict with summary statistics and saved-path info (keys may include):
 - `npz_path` : path to the saved NPZ file (if saved)
 - `fig_prefix` : prefix used for saved plots (if saved)
 
----
 
 ## `optimize_acquisition_cat`
 
@@ -277,7 +275,6 @@ Returns a tuple:
 - `best_ei` (float): best (max) expected improvement achieved
 - `x_min` (np.ndarray): baseline point used by EI (depending on implementation)
 
----
 
 ## `expected_improvement_mc_l1`
 
@@ -314,7 +311,6 @@ Returns a tuple:
 - `fx` (float): auxiliary value returned by the EI routine
 - `x_min` (np.ndarray): baseline point used internally for the improvement term
 
----
 
 ## `compute_lof_affinity`
 
