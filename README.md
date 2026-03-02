@@ -180,6 +180,11 @@ Returns a tuple:
   - `X`: sampled points across iterations
 - `output[1]`: the predictor / black-box evaluator used for the selected dataset
 
+---
+
+## Helper Function
+
+Below is the key function used to run ACE end-to-end.
 
 ## `run_100_fixed_iterations`
 
