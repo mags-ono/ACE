@@ -7,7 +7,7 @@ This repository contains Python code associated with the papers:
    📄 [arXiv link](https://arxiv.org/abs/2509.26322)
    ✅ Accepted for publication in *IEEE Control Systems Letters (LCSS), 2025 Edition*.
 
-3) **Sample-Efficient Counterfactual Tuning for Compressor Pressure Control** (industrial case study)
+2) **Sample-Efficient Counterfactual Tuning for Compressor Pressure Control** (industrial case study)
    Margarita A. Guerrero, Rodrigo A. González, Cristian R. Rojas
    📄 [arXiv link](https://arxiv.org/abs/2512.03747)  
 
@@ -38,9 +38,4 @@ In addition to standard ML benchmarks, ACE is used as a **controller retuning en
 > Note: `ACE_Github.py` imports these helper modules from the same folder, and reads datasets from `datasets/<name>.csv`.
 
 
-## Installation
-
-A typical setup is:
-
-```bash
-pip install numpy scipy scikit-learn matplotlib pandas pyDOE scikit-image
+## Main Functions
