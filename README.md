@@ -182,7 +182,7 @@ Returns a tuple:
 
 ---
 
-## Helper Function
+## Helper Functions
 
 Below is the key function used to run ACE end-to-end.
 
