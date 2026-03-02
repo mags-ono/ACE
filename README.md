@@ -11,6 +11,8 @@ This repository contains Python code associated with the papers:
   Margarita A. Guerrero, Braghadeesh Lakshminarayanan, Cristian R. Rojas  
   📄 [arXiv link](https://arxiv.org/abs/2512.03747)  
 
+---
+
 ## Overview
 
 This code implements **ACE: Adaptive Sampling for Counterfactual Explanations**, a sample-efficient method to compute a **Counterfactual Explanation (CFE)** for **classification** tasks.
@@ -21,6 +23,7 @@ ACE is designed for settings where **queries to the black-box model are limited 
 
 In addition to standard ML benchmarks, ACE is used as a **controller retuning engine** in a safety-critical industrial-inspired setting: the algorithm searches for the smallest actionable change in controller parameters that flips the outcome from “fail” to “pass” with a small number of closed-loop experiments.
 
+---
 
 ## Contents
 
