@@ -90,6 +90,7 @@ run_100_fixed_iterations(
 )
 ```
 **Purpose**
+
 Runs ACE on a **single fixed factual instance** (given by `fixed_index`) for **100 different seeds**, saves run-level artifacts (NPZ + optional boxplots), and returns aggregated statistics.
 
 **Inputs (most important)**
@@ -116,20 +117,6 @@ Returns a **dict** with summary statistics and saved-path info, including:
 - `fig_prefix` : prefix used for saved plots
 - `cfe_mean`, `cfe_std` : mean/std of CFEs in original scale
 - `cfe_mean_norm`, `cfe_std_norm` : mean/std of CFEs in normalized scale
-
-**Example**
-```python
-stats = run_100_fixed_iterations(
-    dataset="pid_cascade",
-    target=t,
-    target_val=1,
-    fixed_index=47,
-    ini_ponts=30,
-    action=[],
-    save_dir="results_pid_cascade"
-)
-print(stats["l2_mean"], stats["validity_rate"], stats["npz_path"])
-
 
 ## Example Included: PID Cascade Tuning
 
