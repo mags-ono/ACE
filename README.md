@@ -3,7 +3,7 @@
 This repository contains Python code associated with the papers:
 
   **“ACE: Adapting Sampling for Counterfactual Explanations”**  
-  Margarita A. Guerrero,Cristian R. Rojas  
+  Margarita A. Guerrero, Cristian R. Rojas  
   📄 [arXiv link](https://arxiv.org/abs/2509.26322)  
   ✅ Accepted for publication in *8th Annual Learning for Dynamics & Control Conference, 2026 Edition*.
   
