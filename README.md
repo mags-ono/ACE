@@ -130,6 +130,7 @@ print("Elapsed_time:", fmt4(result["elapsed_time"]))
 
 If you use this code in your work, please cite:
 
+```bibtex
 @inproceedings{Guerrero-25-ACE,
   title     = {{ACE}: Adapting Sampling for Counterfactual Explanations},
   author    = {Guerrero, Margarita A. and Rojas, Cristian R.},
@@ -137,3 +138,4 @@ If you use this code in your work, please cite:
   year      = {2026},
   note      = {Also available as arXiv:2509.26322}
 }
+```
