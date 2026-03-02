@@ -36,6 +36,110 @@ In addition to standard ML benchmarks, ACE is used as a **controller retuning en
 
 > Note: `ACE_Github.py` imports these helper modules from the same folder, and reads datasets from `datasets/<name>.csv`.
 
+
+# Installation (ACE Repository)
+
+This repository runs on a standard Python scientific stack. The notes below include a recommended folder layout and how to verify package versions from Spyder.
+
+---
+
+## Tested Environment
+
+The repository was tested with:
+
+- Python 3.10.19 (Anaconda)
+- Windows 10
+- numpy 2.2.6
+- scipy 1.15.2
+- pandas 2.3.3
+- scikit-learn 1.7.2
+- matplotlib 3.10.8
+- pyDOE 0.3.8
+
+---
+
+## 1) Install dependencies
+
+If you already have a Python environment, install the required packages with:
+
+```bash
+pip install numpy scipy pandas scikit-learn matplotlib pyDOE
+```
+
+---
+
+## 2) Folder layout (important)
+
+Keep the following files/folders at the **same repository level**:
+
+- `ACE_Github.py`
+- `LDG.py`
+- `LDG_cascade.py`
+- `datasets/`
+
+The code expects datasets at:
+
+- `datasets/<dataset>.csv`  
+  (e.g., `datasets/pid_cascade.csv`)
+
+---
+
+## 3) Quick run
+
+From the repository root:
+
+```bash
+python ACE_Github.py
+```
+
+---
+
+## Check package versions (Spyder)
+
+Run the following in Spyder’s IPython console:
+
+```python
+import sys, platform
+import numpy, scipy, pandas, sklearn, matplotlib
+import pyDOE
+
+print("Python:", sys.version)
+print("Platform:", platform.platform())
+print("numpy:", numpy.__version__)
+print("scipy:", scipy.__version__)
+print("pandas:", pandas.__version__)
+print("scikit-learn:", sklearn.__version__)
+print("matplotlib:", matplotlib.__version__)
+print("pyDOE:", pyDOE.__version__ if hasattr(pyDOE, "__version__") else "unknown")
+```
+
+---
+
+## Export exact environment (optional)
+
+To export all installed packages (useful for reproducibility):
+
+```python
+import sys, subprocess
+subprocess.check_call([sys.executable, "-m", "pip", "freeze"])
+```
+
+---
+
+## Optional: `requirements.txt` (pinned)
+
+If you want a pinned `requirements.txt` matching the tested versions:
+
+```txt
+numpy==2.2.6
+scipy==1.15.2
+pandas==2.3.3
+scikit-learn==1.7.2
+matplotlib==3.10.8
+pyDOE==0.3.8
+```
+
+
 ## Main Function
 
 Below is the key function used to run ACE end-to-end.
