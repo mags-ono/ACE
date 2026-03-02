@@ -7,9 +7,10 @@ This repository contains Python code associated with the papers:
    Margarita A. Guerrero, Cristian R. Rojas
    
    📄 [arXiv link](https://arxiv.org/abs/2509.26322)
+   
    ✅ Accepted for publication in *IEEE Control Systems Letters (LCSS), 2025 Edition*.
 
-2) **Sample-Efficient Counterfactual Tuning for Compressor Pressure Control** (industrial case study)
+3) **Sample-Efficient Counterfactual Tuning for Compressor Pressure Control** (industrial case study)
    
    Margarita A. Guerrero, Rodrigo A. González, Cristian R. Rojas
    
