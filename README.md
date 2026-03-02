@@ -87,8 +87,48 @@ run_100_fixed_iterations(
     show_plots=True,
     save_pdf=True,
     save_png=False
-)```
+)
+```
+**Purpose**
+Runs ACE on a **single fixed factual instance** (given by `fixed_index`) for **100 different seeds**, saves run-level artifacts (NPZ + optional boxplots), and returns aggregated statistics.
 
+**Inputs (most important)**
+- `dataset` (str): dataset name (expects `datasets/<dataset>.csv`)
+- `target` (`Target`): classification target specification
+- `target_val` (int/str): desired target class (e.g., `1`)
+- `fixed_index` (int): index of the factual instance to keep fixed across the 100 runs
+- `ini_ponts` (int): initial number of samples used to initialize ACE in each run
+- `action` (list[int] or empty list): indices of **immutable/frozen** features  
+  - if `action=[]`, then all features are actionable
+- `save_dir` (str): folder where NPZ and figures are saved
+- `save_plots`, `show_plots`, `save_pdf`, `save_png` (bool): figure controls
+
+**Outputs (most important)**
+Returns a **dict** with summary statistics and saved-path info, including:
+- `l2_mean`, `l2_std` : mean/std L2 distance between CFE and factual instance
+- `l1_mean`, `l1_std` : mean/std L1 distance between CFE and factual instance
+- `validity_rate`, `validity_std` : fraction of runs that changed the instance (plus variability)
+- `lof_mean`, `lof_std` : mean/std LOF-based affinity of returned CFEs
+- `iters_mean`, `iters_std` : mean/std of total iterations
+- `real_iters_mean`, `real_iters_std` : mean/std of iterations after initialization
+- `seeds` : array of seeds used
+- `npz_path` : path to the saved NPZ file
+- `fig_prefix` : prefix used for saved plots
+- `cfe_mean`, `cfe_std` : mean/std of CFEs in original scale
+- `cfe_mean_norm`, `cfe_std_norm` : mean/std of CFEs in normalized scale
+
+**Example**
+```python
+stats = run_100_fixed_iterations(
+    dataset="pid_cascade",
+    target=t,
+    target_val=1,
+    fixed_index=47,
+    ini_ponts=30,
+    action=[],
+    save_dir="results_pid_cascade"
+)
+print(stats["l2_mean"], stats["validity_rate"], stats["npz_path"])
 
 
 ## Example Included: PID Cascade Tuning
