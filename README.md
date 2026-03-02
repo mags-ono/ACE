@@ -39,12 +39,12 @@ In addition to standard ML benchmarks, ACE is used as a **controller retuning en
 
 > Note: `ACE_Github.py` imports these helper modules from the same folder, and reads datasets from `datasets/<name>.csv`.
 
+---
 
 # Installation (ACE Repository)
 
 This repository runs on a standard Python scientific stack. The notes below include a recommended folder layout and how to verify package versions from Spyder.
 
----
 
 ## Tested Environment
 
@@ -59,7 +59,6 @@ The repository was tested with:
 - matplotlib 3.10.8
 - pyDOE 0.3.8
 
----
 
 ## 1) Install dependencies
 
@@ -69,7 +68,6 @@ If you already have a Python environment, install the required packages with:
 pip install numpy scipy pandas scikit-learn matplotlib pyDOE
 ```
 
----
 
 ## 2) Folder layout (important)
 
@@ -85,7 +83,6 @@ The code expects datasets at:
 - `datasets/<dataset>.csv`  
   (e.g., `datasets/pid_cascade.csv`)
 
----
 
 ## 3) Quick run
 
@@ -95,7 +92,6 @@ From the repository root:
 python ACE_Github.py
 ```
 
----
 
 ## Check package versions (Spyder)
 
@@ -116,7 +112,6 @@ print("matplotlib:", matplotlib.__version__)
 print("pyDOE:", pyDOE.__version__ if hasattr(pyDOE, "__version__") else "unknown")
 ```
 
----
 
 ## Export exact environment (optional)
 
@@ -127,7 +122,6 @@ import sys, subprocess
 subprocess.check_call([sys.executable, "-m", "pip", "freeze"])
 ```
 
----
 
 ## Optional: `requirements.txt` (pinned)
 
@@ -142,6 +136,7 @@ matplotlib==3.10.8
 pyDOE==0.3.8
 ```
 
+---
 
 ## Main Function
 
@@ -346,6 +341,8 @@ compute_lof_affinity(
 
 **Output**
 - `affinity` (float): LOF-based affinity score
+
+---
 
 ## Example Included: PID Cascade Tuning
 
