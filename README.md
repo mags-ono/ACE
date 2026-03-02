@@ -99,7 +99,6 @@ Copy-paste snippet:
 
 ```python
 inip = 30
-seed = 0
 
 # PIDF
 # dataset = "pidf"
