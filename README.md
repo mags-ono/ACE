@@ -88,9 +88,9 @@ $(Kp_1, Ki_1, Kd_1, Tf_1, \; Kp_2, Ki_2, Kd_2, Tf_2)$
 
 This example obtains the CFE for:
 - `dataset="pid_cascade"`
-- `ind=47` (instance index; corresponds to $\theta_{0,1}$ in *Sample-Efficient Counterfactual Tuning for Compressor Pressure Control*)
+- `ind=47` (instance index; corresponds to $\theta_{01}$ in *Sample-Efficient Counterfactual Tuning for Compressor Pressure Control*)
 - `target_val=1`
-- `inip=30` (initial number of samples $\mathcal{H}$
+- `inip=30` (initial number of samples $\mathcal{H}$)
 - `action=[]` (all 8 parameters are actionable)
 
 Copy-paste snippet:
@@ -98,11 +98,11 @@ Copy-paste snippet:
 ```python
 inip = 30
 
-# PIDF
+# -------------- CASE 1: PIDF --------------
 # dataset = "pidf"
-# ind = 162
+# ind = 162 #This is the first instance for Case 1
 
-# Cascade
+# -------------- CASE 2: Cascade PIDFs --------------
 dataset = "pid_cascade"
 ind = 47
 
