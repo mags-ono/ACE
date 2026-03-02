@@ -125,20 +125,6 @@ Returns a dict with summary statistics and saved-path info (keys may include):
 - `npz_path` : path to the saved NPZ file (if saved)
 - `fig_prefix` : prefix used for saved plots (if saved)
 
-**Example**
-```python
-stats = run_100_fixed_iterations(
-    dataset="pid_cascade",
-    target=t,
-    target_val=1,
-    fixed_index=47,
-    ini_ponts=30,
-    action=[],
-    save_dir="results_pid_cascade"
-)
-print(stats["l2_mean"], stats["validity_rate"], stats["npz_path"])
-```
-
 ---
 
 ## `optimize_acquisition_cat`
@@ -189,23 +175,6 @@ Returns a tuple:
 - `best_ei` (float): best (max) expected improvement achieved
 - `x_min` (np.ndarray): baseline point used by EI (depending on implementation)
 
-**Example**
-```python
-best_x, fx, best_ei, x_min = optimize_acquisition_cat(
-    X=X,
-    t=t_train,
-    categorical_columns=[0, 3],
-    X_test=X_candidates,
-    kernel=kernel,
-    bound_vals=bounds,
-    x_s=instance,
-    MC=200,
-    factor=1.0,
-    lambd=10,
-    action=[]
-)
-```
-
 ---
 
 ## `expected_improvement_mc_l1`
@@ -243,20 +212,6 @@ Returns a tuple:
 - `fx` (float): auxiliary value returned by the EI routine
 - `x_min` (np.ndarray): baseline point used internally for the improvement term
 
-**Example**
-```python
-ei, fx, x_min = expected_improvement_mc_l1(
-    X2=X_candidates,
-    X=X,
-    t=t_train,
-    kernel=kernel,
-    x_s=instance,
-    lambda_=10,
-    n_samples=200,
-    alpha=5
-)
-```
-
 ---
 
 ## `compute_lof_affinity`
@@ -264,9 +219,9 @@ ei, fx, x_min = expected_improvement_mc_l1(
 **Purpose**  
 Computes a **Local Outlier Factor (LOF)** based affinity score for a candidate point, relative to a reference dataset.  
 Intuition:
-- affinity \(\approx 1\) means “typical / inlier”
-- affinity \(> 1\) means “stronger inlier”
-- affinity \(< 1\) means “more outlier-like”
+- affinity $\approx 1$ means “typical / inlier”
+- affinity $> 1$ means “stronger inlier”
+- affinity $ 1$ means “more outlier-like”
 
 **Signature**
 ```python
@@ -284,12 +239,6 @@ compute_lof_affinity(
 
 **Output**
 - `affinity` (float): LOF-based affinity score
-
-**Example**
-```python
-aff = compute_lof_affinity(new_point=cfe, X=X_samples, n_neighbors=30)
-print("LOF affinity:", aff)
-```
 
 ## Example Included: PID Cascade Tuning
 
