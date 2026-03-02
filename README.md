@@ -80,9 +80,9 @@ At the end of `ACE_Github.py`, a minimal executable example computes the closest
 
 The example uses the factual controller parameter vector:
 
-\[\theta_0 = [[8.4533, 0.1358, 1.7270, 0.0104, 3.9855, 2.8415, 0.2635, 0.0200]]\]
+$\theta_0 = [[8.4533, 0.1358, 1.7270, 0.0104, 3.9855, 2.8415, 0.2635, 0.0200]]$
 corresponding to:
-\[(Kp_1, Ki_1, Kd_1, Tf_1, \; Kp_2, Ki_2, Kd_2, Tf_2)\]
+$(Kp_1, Ki_1, Kd_1, Tf_1, \; Kp_2, Ki_2, Kd_2, Tf_2)$
 
 This example obtains the CFE for:
 - `dataset="pid_cascade"`
