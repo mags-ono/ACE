@@ -38,3 +38,23 @@ In addition to standard ML benchmarks, ACE is used as a **controller retuning en
 
 
 ## Main Functions
+
+Below is the key function used to run ACE end-to-end.
+
+## Main Function
+
+Below is the key function used to run ACE end-to-end.
+
+### `iterative_main_loop`
+
+**Signature**
+```python
+iterative_main_loop(
+    dataset,
+    target,
+    initial_instance_index,
+    target_val,
+    ini_ponts,
+    seed=0,
+    action=None
+)
